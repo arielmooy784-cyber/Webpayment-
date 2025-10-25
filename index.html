@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JOSS OFFICIAL</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: black;
+      color: white;
+      font-family: 'Courier New', monospace;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    /* Efek kode hijau bergerak */
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      text-shadow: 0 0 10px lime;
+    }
+
+    .qris {
+      width: 300px;
+      height: auto;
+      border: 3px solid white;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-size: 1.1rem;
+      margin: 5px 0;
+    }
+
+    .desc {
+      margin-top: 10px;
+      max-width: 90%;
+      line-height: 1.5;
+      color: #bfffbf;
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="matrix"></canvas>
+
+  <div class="content">
+    <h1>JOSS OFFICIAL</h1>
+    <img class="qris" src="https://files.catbox.moe/jlzh3s.jpeg" alt="QRIS JOSS OFFICIAL">
+    <p><strong>DANA:</strong> 082268135038</p>
+    <p><strong>Atas Nama:</strong> Elis</p>
+    <p class="desc">Menyediakan SC Nika, Evil, ZENO, Panel, VPS, Jasa Buat Web, dll</p>
+  </div>
+
+  <script>
+    // Efek kode hijau bergerak
+    const canvas = document.getElementById('matrix');
+    const ctx = canvas.getContext('2d');
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    const fontSize = 16;
+    const columns = canvas.width / fontSize;
+    const drops = Array(Math.floor(columns)).fill(1);
+
+    function draw() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#0F0";
+      ctx.font = fontSize + "px monospace";
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = letters.charAt(Math.floor(Math.random() * letters.length));
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975)
+          drops[i] = 0;
+        drops[i]++;
+      }
+    }
+
+    setInterval(draw, 35);
+  </script>
+
+</body>
+</html>
